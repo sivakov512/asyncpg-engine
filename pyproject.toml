@@ -1,9 +1,12 @@
 [tool.poetry]
 name = "asyncpg-engine"
-version = "0.1.0"
+version = "0.0.1"  # VERSION_ANCHOR
 description = "Wrapper around asyncpg with a bit better experience."
-authors = ["Nikita Sivakov <sivakov512@gmail.com>"]
 license = "MIT"
+authors = ["Nikita Sivakov <sivakov512@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/sivakov512/asyncpg-engine"
+repository = "https://github.com/sivakov512/asyncpg-engine"
 
 [tool.poetry.dependencies]
 python = "^3.9"
