@@ -1,0 +1,10 @@
+[flake8]
+inline-quotes = "
+max-line-length = 120
+exclude =
+    .venv,
+    .direnv,
+    .git,
+    .mypy_cache,
+    .pytest_cache,
+    __pycache__
