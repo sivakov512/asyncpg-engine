@@ -7,8 +7,8 @@ pytestmark = [pytest.mark.asyncio]
 
 
 @pytest.fixture()
-async def engine(config: dict[str, str]) -> Engine:
-    return await Engine.create(config["POSTGRES_URL"])
+async def engine(postgres_url: str) -> Engine:
+    return await Engine.create(postgres_url)
 
 
 async def test_returns_new_connection_every_acquire(engine: Engine) -> None:
@@ -19,9 +19,9 @@ async def test_returns_new_connection_every_acquire(engine: Engine) -> None:
 
 
 async def test_returns_the_same_connection_every_acquire_if_single(
-    config: dict[str, str]
+    postgres_url: str,
 ) -> None:
-    engine = await Engine.create(config["POSTGRES_URL"], use_single_connection=True)
+    engine = await Engine.create(postgres_url, use_single_connection=True)
 
     async with engine.acquire() as con_0:
         async with engine.acquire() as con_1:
@@ -30,9 +30,9 @@ async def test_returns_the_same_connection_every_acquire_if_single(
 
 
 async def test_non_force_release_ignored_for_single_connection(
-    config: dict[str, str]
+    postgres_url: str,
 ) -> None:
-    engine = await Engine.create(config["POSTGRES_URL"], use_single_connection=True)
+    engine = await Engine.create(postgres_url, use_single_connection=True)
     async with engine.acquire() as con_0:
         pass
     async with engine.acquire() as con_1:

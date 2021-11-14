@@ -4,7 +4,7 @@ services:
 
   postgres:
     image: postgres:13
-    container_name: upmarket-cc-partners
+    container_name: asyncpg-engine-postgres
     environment:
       POSTGRES_PASSWORD: guest
       POSTGRES_USER: guest
