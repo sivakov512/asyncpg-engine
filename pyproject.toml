@@ -58,3 +58,6 @@ warn_redundant_casts = true
 warn_return_any = true
 warn_unused_ignores = true
 implicit_reexport = false
+
+[tool.black]
+line-length = 120
