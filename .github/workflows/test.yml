@@ -33,8 +33,8 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: .venv
-        key: ${{ github.ref }}-${{ github.workflow }}-${{ runner.os }}-${{ github.job }}-${{ hashFiles('poetry.lock') }}
-        restore-keys: refs/heads/master-${{ github.workflow }}-${{ runner.os }}-${{ github.job }}-${{ hashFiles('poetry.lock') }}
+        key: ${{ github.ref }}-${{ github.workflow }}-${{ runner.os }}-${{ github.job }}-${{ hashFiles('pyproject.toml') }}
+        restore-keys: refs/heads/master-${{ github.workflow }}-${{ runner.os }}-${{ github.job }}-${{ hashFiles('pyproject.toml') }}
 
     - name: Install dependencies
       run: poetry install
@@ -67,8 +67,8 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: .venv
-        key: ${{ github.ref }}-${{ github.workflow }}-${{ runner.os }}-${{ github.job }}-${{ hashFiles('poetry.lock') }}
-        restore-keys: refs/heads/master-${{ github.workflow }}-${{ runner.os }}-${{ github.job }}-${{ hashFiles('poetry.lock') }}
+        key: ${{ github.ref }}-${{ github.workflow }}-${{ runner.os }}-${{ github.job }}-${{ hashFiles('pyproject.toml') }}
+        restore-keys: refs/heads/master-${{ github.workflow }}-${{ runner.os }}-${{ github.job }}-${{ hashFiles('pyproject.toml') }}
 
     - name: Install dependencies
       run: poetry install
