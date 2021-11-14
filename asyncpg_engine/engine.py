@@ -21,9 +21,7 @@ class Engine:
         self._global_con = None
 
     @classmethod
-    async def create(
-        cls, url: str, *, use_single_connection: bool = False, **kwargs: Any
-    ) -> "Engine":
+    async def create(cls, url: str, *, use_single_connection: bool = False, **kwargs: Any) -> "Engine":
         pool = await create_pool(url, min_size=2, init=cls._set_codecs, **kwargs)
         return cls(pool, use_single_connection)
 
@@ -74,7 +72,5 @@ class ConnectionAcquire:
     async def __aenter__(self) -> Connection:
         return await self()
 
-    async def __aexit__(
-        self, exc_type: Type[BaseException], exc: BaseException, tv: TracebackType
-    ) -> None:
+    async def __aexit__(self, exc_type: Type[BaseException], exc: BaseException, tv: TracebackType) -> None:
         await self.engine.release(self.con)

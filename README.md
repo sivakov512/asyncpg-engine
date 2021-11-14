@@ -82,6 +82,24 @@ async def test_returns_true_too(db):
         assert await con.fetchval("SELECT true")
 ```
 
+If you want to use in tests your own custom `Engine` subclass you can define `asyncpg_engine_cls` fixture that returns it:
+```python
+from asyncpg_engine import Engine
+
+
+class MyPrettyEngine(Engine):
+    pass
+
+
+@pytest.fixture()
+def asyncpg_engine_cls() -> t.Type[MyPrettyEngine]:
+    return MyPrettyEngine
+
+
+async def test_returns_my_pretty_engine(db: MyPrettyEngine) -> None:
+    assert isinstance(db, MyPrettyEngine)
+```
+
 ## Development and contribution
 
 First of all you should install Poetry using [official instructions](https://python-poetry.org/docs/#osx--linux--bashonwindows-install-instructions) or solutions provided by your distro. Then install dependencies:
