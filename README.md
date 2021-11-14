@@ -1,6 +1,6 @@
 # asyncpg-engine
 
-Little wrapper around [asyncpg](https://github.com/MagicStack/asyncpg) for specific experience.
+Little wrapper around [asyncpg](https://github.com/MagicStack/asyncpg) for specific experience and transactional testing.
 
 [![Build Status](https://github.com/sivakov512/asyncpg-engine/actions/workflows/test.yml/badge.svg)](https://github.com/sivakov512/asyncpg-engine/actions/workflows/test.yml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
@@ -36,6 +36,50 @@ class MyEngine(Engine):
         await con.set_type_codec(
             "json", encoder=orjson.dumps, decoder=orjson.loads, schema="pg_catalog"
         )
+```
+
+## Pytest plugin
+
+Library includes pytest plugin with support for transactional testing.
+
+To start using it install `pytest`, enable plugin in your root `conftest.py` and define `postgres_url` fixture that returns connection string to database:
+```python
+pytest_plugins = ["asyncpg_engine"]
+
+
+@pytest.fixture()
+def postgres_url() -> str:
+    return "postgres://guest:guest@localhost:5432/guest?sslmode=disable"
+```
+
+Now you can use two fixtures:
+
+* `db` that returns `Engine` instance:
+```python
+async def test_returns_true(db):
+    async with db.acquire() as con:
+        assert await con.fetchval("SELECT true")
+```
+
+* `con` that returns already acquired connection:
+```python
+async def test_returns_true(con):
+    assert await con.fetchval("SELECT true")
+```
+
+By default `Engine` configured for transactional testing, so every call to `db.acquire` or `con` usage will return the same connection with already started transaction. Transaction is rolled back at the end of test, so all your changes in db are rolled back too.
+
+You can override this behaviour with `asyncpg_engine` mark:
+```python
+@pytest.mark.asyncpg_engine(transactional=False)
+async def test_returns_true(con):
+    assert await con.fetchval("SELECT true")
+
+
+@pytest.mark.asyncpg_engine(transactional=False)
+async def test_returns_true_too(db):
+    async with db.acquire() as con:
+        assert await con.fetchval("SELECT true")
 ```
 
 ## Development and contribution
