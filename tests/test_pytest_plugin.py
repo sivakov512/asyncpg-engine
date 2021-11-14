@@ -27,7 +27,14 @@ async def test_transactional_by_default(con: Connection) -> None:
     assert await con.fetchval(sql) == await con.fetchval(sql)
 
 
-@pytest.mark.not_transactional()
+@pytest.mark.asyncpg_engine(transactional=True)
+async def test_transactional_if_specified(con: Connection) -> None:
+    sql = "SELECT txid_current()"
+
+    assert await con.fetchval(sql) == await con.fetchval(sql)
+
+
+@pytest.mark.asyncpg_engine(transactional=False)
 async def test_engine_returns_new_connection_if_not_transactional(
     db: Engine,
 ) -> None:
@@ -37,7 +44,7 @@ async def test_engine_returns_new_connection_if_not_transactional(
             assert con_0 != con_1
 
 
-@pytest.mark.not_transactional()
+@pytest.mark.asyncpg_engine(transactional=False)
 async def test_con_returns_not_the_same_connection_as_engine_if_not_transactional(
     db: Engine,
     con: Connection,
@@ -48,8 +55,8 @@ async def test_con_returns_not_the_same_connection_as_engine_if_not_transactiona
             assert con_0 != con_1
 
 
-@pytest.mark.not_transactional()
-async def test_not_in_transactional_if_marked(con: Connection) -> None:
+@pytest.mark.asyncpg_engine(transactional=False)
+async def test_not_transactional_if_specified(con: Connection) -> None:
     sql = "SELECT txid_current()"
 
     assert await con.fetchval(sql) != await con.fetchval(sql)

@@ -7,14 +7,18 @@ from asyncpg_engine import Engine
 
 
 def pytest_configure(config: t.Any) -> None:
-    config.addinivalue_line("markers", "not_transactional: use non-transactional db.")
+    config.addinivalue_line(
+        "markers", "asyncpg_engine: configure asyncpg-engine plugin behaviour."
+    )
 
 
 @pytest.fixture()
 async def db(
     request: pytest.FixtureRequest, postgres_url: str
 ) -> t.AsyncGenerator[Engine, None]:
-    transactional = not bool(request.node.get_closest_marker("not_transactional"))
+    plugin_config = request.node.get_closest_marker("asyncpg_engine")
+
+    transactional = getattr(plugin_config, "kwargs", {}).get("transactional", True)
 
     _db = await Engine.create(url=postgres_url, use_single_connection=transactional)
 
