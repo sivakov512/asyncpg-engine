@@ -51,6 +51,16 @@ jobs:
       matrix:
         python-version: ["3.9", "3.10"]
 
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_PASSWORD: guest
+          POSTGRES_USER: guest
+          POSTGRES_DB: guest
+        ports:
+          - 5432:5432
+
     steps:
     - uses: actions/checkout@v2
 
