@@ -1,6 +1,6 @@
 # asyncpg-engine
 
-Little wrapper around [asyncpg](https://github.com/MagicStack/asyncpg) for specific experience and transactional testing.
+Small wrapper around [asyncpg](https://github.com/MagicStack/asyncpg) for specific experience and transactional testing.
 
 [![Build Status](https://github.com/sivakov512/asyncpg-engine/actions/workflows/test.yml/badge.svg)](https://github.com/sivakov512/asyncpg-engine/actions/workflows/test.yml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
@@ -22,7 +22,7 @@ async with engine.acquire() as con:
 
 ### Custom type conversions
 
-You can specify [custom encoder\decoder](https://magicstack.github.io/asyncpg/current/usage.html#custom-type-conversions) by subclassing `Engine`:
+You can specify [custom encoder/decoder](https://magicstack.github.io/asyncpg/current/usage.html#custom-type-conversions) by subclassing `Engine`:
 ```python
 from asyncpg_engine import Engine
 import orjson
@@ -42,7 +42,7 @@ class MyEngine(Engine):
 
 Library includes pytest plugin with support for transactional testing.
 
-To start using it install `pytest`, enable plugin in your root `conftest.py` and define `postgres_url` fixture that returns connection string to database:
+To start using it install `pytest`, enable plugin in your root `conftest.py` and define `postgres_url` fixture that returns database connection string:
 ```python
 pytest_plugins = ["asyncpg_engine"]
 
@@ -67,7 +67,7 @@ async def test_returns_true(con):
     assert await con.fetchval("SELECT true")
 ```
 
-By default `Engine` configured for transactional testing, so every call to `db.acquire` or `con` usage will return the same connection with already started transaction. Transaction is rolled back at the end of test, so all your changes in db are rolled back too.
+By default `Engine` is configured for transactional testing, so every call to `db.acquire` or `con` usage will return the same connection with already started transaction. Transaction is rolled back at the end of test, so all your changes in db are rolled back too.
 
 You can override this behaviour with `asyncpg_engine` mark:
 ```python
@@ -82,7 +82,7 @@ async def test_returns_true_too(db):
         assert await con.fetchval("SELECT true")
 ```
 
-If you want to use in tests your own custom `Engine` subclass you can define `asyncpg_engine_cls` fixture that returns it:
+If you want to use your own custom `Engine` subclass in tests you can define `asyncpg_engine_cls` fixture that returns it:
 ```python
 from asyncpg_engine import Engine
 
@@ -92,7 +92,7 @@ class MyPrettyEngine(Engine):
 
 
 @pytest.fixture()
-def asyncpg_engine_cls() -> t.Type[MyPrettyEngine]:
+def asyncpg_engine_cls() -> typing.Type[MyPrettyEngine]:
     return MyPrettyEngine
 
 
@@ -112,7 +112,7 @@ Run PostgreSQL using provided docker-compose configuration:
 docker-compose up  # run it in another terminal or add `-d` to daemonize
 ```
 
-Project uses combination of `flake8`, `black`, `isort` and `mypy` for linting and `pytest` for testing.
+Project uses a combination of `flake8`, `black`, `isort` and `mypy` for linting and `pytest` for testing.
 
 ```bash
 poetry run flake8
