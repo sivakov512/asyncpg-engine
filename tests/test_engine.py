@@ -1,4 +1,5 @@
 import pytest
+import pytest_asyncio
 from asyncpg import InterfaceError
 
 from asyncpg_engine import Engine
@@ -6,7 +7,7 @@ from asyncpg_engine import Engine
 pytestmark = [pytest.mark.asyncio]
 
 
-@pytest.fixture()
+@pytest_asyncio.fixture()
 async def engine(postgres_url: str) -> Engine:
     return await Engine.create(postgres_url)
 
