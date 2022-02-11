@@ -1,6 +1,7 @@
 import typing as t
 
 import pytest
+import pytest_asyncio
 from asyncpg import Connection
 
 from asyncpg_engine import Engine
@@ -15,7 +16,7 @@ def asyncpg_engine_cls() -> t.Type[Engine]:
     return Engine
 
 
-@pytest.fixture()
+@pytest_asyncio.fixture()
 async def db(
     request: pytest.FixtureRequest, asyncpg_engine_cls: t.Type[Engine], postgres_url: str
 ) -> t.AsyncGenerator[Engine, None]:
@@ -36,7 +37,7 @@ async def db(
     await _db.close()
 
 
-@pytest.fixture()
+@pytest_asyncio.fixture()
 async def con(db: Engine) -> t.AsyncGenerator[Connection, None]:
     async with db.acquire() as _con:
         yield _con
