@@ -2,7 +2,8 @@
 
 Small wrapper around [asyncpg](https://github.com/MagicStack/asyncpg) for specific experience and transactional testing.
 
-[![Build Status](https://github.com/sivakov512/asyncpg-engine/actions/workflows/test.yml/badge.svg)](https://github.com/sivakov512/asyncpg-engine/actions/workflows/test.yml)
+[![test Status](https://github.com/sivakov512/asyncpg-engine/actions/workflows/test.yml/badge.svg)](https://github.com/sivakov512/asyncpg-engine/actions/workflows/test.yml)
+[![Coverage Status](https://coveralls.io/repos/github/sivakov512/asyncpg-engine/badge.svg?branch=master)](https://coveralls.io/github/sivakov512/asyncpg-engine?branch=master)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![Python versions](https://img.shields.io/pypi/pyversions/asyncpg-engine.svg)](https://pypi.python.org/pypi/asyncpg-engine)
 [![PyPi](https://img.shields.io/pypi/v/asyncpg-engine.svg)](https://pypi.python.org/pypi/asyncpg-engine)
@@ -102,20 +103,21 @@ async def test_returns_my_pretty_engine(db: MyPrettyEngine) -> None:
 
 ## Development and contribution
 
-First of all you should install Poetry using [official instructions](https://python-poetry.org/docs/#osx--linux--bashonwindows-install-instructions) or solutions provided by your distro. Then install dependencies:
+First of all you should install [Poetry](https://python-poetry.org).
+
+* install project dependencies
 ```bash
-poetry install
+make install
 ```
 
-Run PostgreSQL using provided docker-compose configuration:
+* run linters
 ```bash
-docker-compose up  # run it in another terminal or add `-d` to daemonize
+make lint
 ```
 
-Project uses a combination of `flake8`, `black`, `isort` and `mypy` for linting and `pytest` for testing.
-
+* run tests
 ```bash
-poetry run flake8
-poetry run mypy ./
-poetry run pytest
+make test
 ```
+
+* feel free to contribute!

@@ -1,9 +1,10 @@
 *.py[cod]
+./.idea
 .cache
+.coverage
 .envrc
 .local
 .venv
 __pycache__
 dist
 poetry.lock
-./.idea

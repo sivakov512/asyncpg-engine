@@ -1,4 +1,4 @@
-import typing as t
+import typing
 
 import pytest
 
@@ -12,7 +12,7 @@ class MyPrettyEngine(Engine):
 
 
 @pytest.fixture()
-def asyncpg_engine_cls() -> t.Type[MyPrettyEngine]:
+def asyncpg_engine_cls() -> typing.Type[MyPrettyEngine]:
     return MyPrettyEngine
 
 

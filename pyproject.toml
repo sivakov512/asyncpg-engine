@@ -3,44 +3,44 @@ name = "asyncpg-engine"
 version = "0.0.1"  # VERSION_ANCHOR
 description = "Wrapper around asyncpg with a bit better experience."
 license = "MIT"
-authors = ["Nikita Sivakov <sivakov512@gmail.com>"]
+authors = ["Nikita Sivakov <sivakov512@icloud.com>"]
 readme = "README.md"
 homepage = "https://github.com/sivakov512/asyncpg-engine"
 repository = "https://github.com/sivakov512/asyncpg-engine"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pytest = {version = "^7.2.0", optional = true}
 asyncpg = "^0.27.0"
-pytest = {version = "^7.0.0", optional = true}
-
-[tool.poetry.dev-dependencies]
-black = "^22.1.0"
-flake8 = "^4.0.1"
-flake8-black = "^0.2.3"
-flake8-debugger = "^4.0.0"
-flake8-eradicate = "^1.2.0"
-flake8-isort = "^4.1.1"
-flake8-print = "^4.0.0"
-flake8-pytest-style = "^1.5.1"
-flake8-quotes = "^3.3.1"
-isort = "^5.10.1"
-mypy = "^0.931"
-pytest = "^7.0.0"
-pytest-asyncio = "^0.18.1"
-pdbpp = "^0.10.3"
-pytest-deadfixtures = "^2.2.1"
 
 [tool.poetry.plugins.pytest11]
 asyncpg_engine = "asyncpg_engine.pytest_plugin"
 
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
+flake8-debugger = "^4.1.2"
+flake8-isort = "^6.0.0"
+flake8-print = "^5.0.0"
+flake8-pytest-style = "^1.6.0"
+flake8-quotes = "^3.3.2"
+isort = "^5.11.4"
+mypy = "^0.991"
+pytest = "^7.2.0"
+pytest-asyncio = "^0.20.3"
+pytest-deadfixtures = "^2.2.1"
+flake8-black = "^0.3.6"
+black = "^22.12.0"
+pytest-cov = "^4.0.0"
+coveralls = "^3.3.1"
+
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
 combine_as_imports = true
 include_trailing_comma = true
-line_length = 119
+line_length = 99
 multi_line_output = 3
 use_parentheses = true
 
@@ -60,7 +60,7 @@ warn_unused_ignores = true
 implicit_reexport = false
 
 [tool.black]
-line-length = 120
+line-length = 100
 
 [tool.pytest.ini_options]
 asyncio_mode = 'strict'
