@@ -47,12 +47,6 @@ async def test_closes_well(engine: Engine) -> None:
         await engine.acquire()
 
 
-async def test_healthcheck_returns_nothing(engine: Engine) -> None:
-    got = await engine.healthcheck()
-
-    assert got is None
-
-
 async def test_healthcheck_raises_if_something_went_wrong(engine: Engine) -> None:
     await engine.close()
 

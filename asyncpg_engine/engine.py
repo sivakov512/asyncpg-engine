@@ -1,10 +1,10 @@
+__all__ = ["Engine"]
+
+import typing
 from types import TracebackType
-from typing import Any, Generator, Optional, Type
 
 from asyncpg import Connection, create_pool
 from asyncpg.pool import Pool
-
-__all__ = ["Engine"]
 
 
 class Engine:
@@ -12,7 +12,7 @@ class Engine:
 
     _pool: Pool
     _use_single_con: bool
-    _global_con: Optional[Connection]
+    _global_con: typing.Optional[Connection]
 
     def __init__(self, pool: Pool, use_single_connection: bool):
         self._pool = pool
@@ -21,7 +21,9 @@ class Engine:
         self._global_con = None
 
     @classmethod
-    async def create(cls, url: str, *, use_single_connection: bool = False, **kwargs: Any) -> "Engine":
+    async def create(
+        cls, url: str, *, use_single_connection: bool = False, **kwargs: typing.Any
+    ) -> "Engine":
         pool = await create_pool(url, min_size=2, init=cls._set_codecs, **kwargs)
         return cls(pool, use_single_connection)
 
@@ -56,7 +58,7 @@ class ConnectionAcquire:
     __slots__ = "engine", "con"
 
     engine: Engine
-    con: Optional[Connection]
+    con: typing.Optional[Connection]
 
     def __init__(self, engine: Engine):
         self.engine = engine
@@ -66,11 +68,13 @@ class ConnectionAcquire:
         self.con = await self.engine._acquire()
         return self.con
 
-    def __await__(self) -> Generator[Connection, None, None]:
+    def __await__(self) -> typing.Generator[Connection, None, None]:
         return self().__await__()
 
     async def __aenter__(self) -> Connection:
         return await self()
 
-    async def __aexit__(self, exc_type: Type[BaseException], exc: BaseException, tv: TracebackType) -> None:
+    async def __aexit__(
+        self, exc_type: typing.Type[BaseException], exc: BaseException, tv: TracebackType
+    ) -> None:
         await self.engine.release(self.con)
