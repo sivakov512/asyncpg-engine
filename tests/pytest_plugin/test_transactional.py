@@ -9,13 +9,11 @@ pytestmark = [pytest.mark.asyncio]
 async def test_acquire_returns_the_same_connection(db: Engine) -> None:
     async with db.acquire() as con_0:
         async with db.acquire() as con_1:
-
             assert con_0 == con_1
 
 
 async def test_con_is_the_same_as_acquire_result(db: Engine, con: Connection) -> None:
     async with db.acquire() as con_0:
-
         assert con_0 == con
 
 

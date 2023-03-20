@@ -15,7 +15,6 @@ async def engine(postgres_url: str) -> Engine:
 async def test_returns_new_connection_every_acquire(engine: Engine) -> None:
     async with engine.acquire() as con_0:
         async with engine.acquire() as con_1:
-
             assert con_0 != con_1
 
 
@@ -24,7 +23,6 @@ async def test_returns_the_same_connection_every_acquire_if_single(postgres_url:
 
     async with engine.acquire() as con_0:
         async with engine.acquire() as con_1:
-
             assert con_0 == con_1
 
 
@@ -33,7 +31,6 @@ async def test_non_force_release_ignored_for_single_connection(postgres_url: str
     async with engine.acquire() as con_0:
         pass
     async with engine.acquire() as con_1:
-
         assert con_0 is con_1
 
     await engine.release(con_0, force=True)
