@@ -11,7 +11,7 @@ class MyPrettyEngine(Engine):
     pass
 
 
-@pytest.fixture()
+@pytest.fixture
 def asyncpg_engine_cls() -> typing.Type[MyPrettyEngine]:
     return MyPrettyEngine
 
