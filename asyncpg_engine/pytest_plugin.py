@@ -11,12 +11,12 @@ def pytest_configure(config: typing.Any) -> None:
     config.addinivalue_line("markers", "asyncpg_engine: configure asyncpg-engine plugin behaviour.")
 
 
-@pytest.fixture()
+@pytest.fixture
 def asyncpg_engine_cls() -> typing.Type[Engine]:
     return Engine
 
 
-@pytest_asyncio.fixture()
+@pytest_asyncio.fixture
 async def db(
     request: pytest.FixtureRequest, asyncpg_engine_cls: typing.Type[Engine], postgres_url: str
 ) -> typing.AsyncGenerator[Engine, None]:
@@ -37,7 +37,7 @@ async def db(
     await _db.close()
 
 
-@pytest_asyncio.fixture()
+@pytest_asyncio.fixture
 async def con(db: Engine) -> typing.AsyncGenerator[Connection, None]:
     async with db.acquire() as _con:
         yield _con
