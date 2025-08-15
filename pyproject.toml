@@ -11,7 +11,7 @@ repository = "https://github.com/sivakov512/asyncpg-engine"
 [tool.poetry.dependencies]
 python = "^3.9"
 pytest = {version = "^8.0.0", optional = true}
-asyncpg = "^0.29.0"
+asyncpg = "^0.30.0"
 
 [tool.poetry.plugins.pytest11]
 asyncpg_engine = "asyncpg_engine.pytest_plugin"
