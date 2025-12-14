@@ -3,7 +3,7 @@
 Small wrapper around [asyncpg](https://github.com/MagicStack/asyncpg) for specific experience and transactional testing.
 
 [![test Status](https://github.com/sivakov512/asyncpg-engine/actions/workflows/test.yml/badge.svg)](https://github.com/sivakov512/asyncpg-engine/actions/workflows/test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/sivakov512/asyncpg-engine/badge.svg?branch=master)](https://coveralls.io/github/sivakov512/asyncpg-engine?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/sivakov512/asyncpg-engine/badge.svg?branch=main)](https://coveralls.io/github/sivakov512/asyncpg-engine?branch=main)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![Python versions](https://img.shields.io/pypi/pyversions/asyncpg-engine.svg)](https://pypi.python.org/pypi/asyncpg-engine)
 [![PyPi](https://img.shields.io/pypi/v/asyncpg-engine.svg)](https://pypi.python.org/pypi/asyncpg-engine)
